@@ -1,0 +1,24 @@
+{
+  "name": "crewculator",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Xola Tip Extractor — internal payroll tool. Static HTML + one Netlify Function. Pulls tips from Xola, splits per guide per event, downloads a Gusto-ready CSV.",
+  "type": "module",
+  "scripts": {
+    "dev": "netlify dev",
+    "test": "node --test tests/",
+    "test:smoke": "playwright test --project=desktop"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "netlify-cli": "^17.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mobiustripper42/crewculator.git"
+  },
+  "license": "UNLICENSED"
+}

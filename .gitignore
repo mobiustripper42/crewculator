@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Netlify
+.netlify/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Test artifacts
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Sessions worktree (lives on orphan `sessions` branch via .sessions-worktree/)
+.sessions-worktree/
+
+# Claude
+.claude/devname
+.claude/prod-supabase-refs
+
+# Logs
+*.log
+npm-debug.log*
