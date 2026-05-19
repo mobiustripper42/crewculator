@@ -38,7 +38,9 @@
       "Bash(cp \"C:\\\\Users\\\\eric\\\\OneDrive\\\\Documents\\\\GitHub\\\\seeds\\\\dev\\\\claude\\\\skills\\\\read-the-tape\\\\SKILL.md\" \"C:\\\\Users\\\\eric\\\\OneDrive\\\\Documents\\\\GitHub\\\\sailbook\\\\.claude\\\\skills\\\\read-the-tape\\\\SKILL.md\")",
       "Bash(cp \"C:\\\\Users\\\\eric\\\\OneDrive\\\\Documents\\\\GitHub\\\\seeds\\\\dev\\\\claude\\\\agents\\\\tape-reader.md\" \"C:\\\\Users\\\\eric\\\\OneDrive\\\\Documents\\\\GitHub\\\\seeds\\\\.claude\\\\agents\\\\tape-reader.md\")",
       "Bash(cp \"C:\\\\Users\\\\eric\\\\OneDrive\\\\Documents\\\\GitHub\\\\seeds\\\\dev\\\\claude\\\\agents\\\\tape-reader.md\" \"C:\\\\Users\\\\eric\\\\OneDrive\\\\Documents\\\\GitHub\\\\sailbook\\\\.claude\\\\agents\\\\tape-reader.md\")",
-      "Bash(python -c \"import json,sys; prs=json.load\\(sys.stdin\\); print\\(f'Merged PRs: {len\\(prs\\)}'\\); print\\('Earliest:', min\\(p['mergedAt'] for p in prs\\)\\); print\\('Latest:', max\\(p['mergedAt'] for p in prs\\)\\)\")"
+      "Bash(python -c \"import json,sys; prs=json.load\\(sys.stdin\\); print\\(f'Merged PRs: {len\\(prs\\)}'\\); print\\('Earliest:', min\\(p['mergedAt'] for p in prs\\)\\); print\\('Latest:', max\\(p['mergedAt'] for p in prs\\)\\)\")",
+      "Bash(brew list *)",
+      "Bash(brew --version)"
     ]
   }
 }
