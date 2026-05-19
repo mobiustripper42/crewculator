@@ -26,8 +26,8 @@ Everything needed to build safely + resolve the open API questions from the hand
 
 | # | Task | Effort | Notes |
 |---|------|--------|-------|
-| 0.1 | Repo skeleton: `package.json`, `.gitignore`, `netlify.toml`, `.env.example`, `public/index.html` stub, `netlify/functions/` dir; Netlify site init + linking; `netlify dev` boots both function + static site locally | 3 | The doc files (CLAUDE.md, SPEC.md, etc.) are already in place from the 2026-05-18 planning session — they don't count against this task |
-| 0.2 | Sandbox API exploration — hit `/orders`, `/events`, `/guides` against `sandbox.xola.com`; capture real response JSON for one tipped trip, one 3+ crew trip, one cancelled trip; document actual shapes in `docs/API_NOTES.md`; promote the four DEC-TBD entries to numbered DEC entries | 5 | Resolves DEC-TBD: addon shape, date-range query, event→guides, gratuity field |
+| 0.1 | Repo skeleton: `package.json`, `.gitignore`, `netlify.toml`, `.env.example`, `public/index.html` stub, `netlify/functions/` dir; Netlify site init + linking; `netlify dev` boots both function + static site locally | 3 | [#1](https://github.com/mobiustripper42/crewculator/issues/1) |
+| 0.2 | Sandbox API exploration — hit `/orders`, `/events`, `/guides` against `sandbox.xola.com`; capture real response JSON for one tipped trip, one 3+ crew trip, one cancelled trip; document actual shapes in `docs/API_NOTES.md`; promote the four DEC-TBD entries to numbered DEC entries | 5 | [#2](https://github.com/mobiustripper42/crewculator/issues/2) |
 
 **Phase 0 total: 8 pts**
 
