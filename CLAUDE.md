@@ -167,6 +167,7 @@ netlify deploy --prod          # production deploy (user runs this)
 | `/push-seeds` | After workflow improvements | Backport project-side improvements to the seeds templates via @sync-config |
 | `/pull-seeds` | After seeds gets new improvements | Pull template changes into this project — schema-version-gated |
 | `/read-the-tape` | After a session worth learning from | Audit JSONL transcript, find anti-patterns, propose skill improvements |
+| `/doc-consistency-check` | Mid-project, before phase boundaries, or after a session that touched multiple docs | Cross-reference factual claims across `docs/*.md` + root `CLAUDE.md`; flag mismatches + unfilled placeholders. Report-only via @doc-consistency |
 
 **Dev identity:** `~/.claude/devname` (one-line file with your handle). Set once per machine.
 
@@ -181,12 +182,14 @@ netlify deploy --prod          # production deploy (user runs this)
 | @pm | Sonnet | Start/end of sessions (via skills) | Track progress, flag risks |
 | @sync-config | Sonnet | `/push-seeds`, `/pull-seeds` | Template sync |
 | @tape-reader | Sonnet | `/read-the-tape` | Transcript audit |
+| @doc-consistency | Sonnet | Via `/doc-consistency-check` skill, or ad-hoc | Cross-reference factual claims across project docs; flag mismatches + unfilled placeholders. Report-only |
 | @ui-reviewer | — | Not used — type-gated to `webapp` projects only |
 
 ## Model Selection
 
 - **Main CC session:** Sonnet by default. Switch to Opus manually when you're stuck on something hard.
 - **Agents:** model is set in each agent's frontmatter. Don't override unless the task warrants it.
+- **New agents:** default to Sonnet. Add `model: opus` frontmatter only for architecture-level agents.
 
 ## PR Workflow (DEC-013 + DEC-014)
 
@@ -222,6 +225,7 @@ Auto-maintained by the version-bump skills. Don't edit by hand mid-flow.
 - **Environment-changing commands** (`npm install`, `netlify deploy`, `git push`): output for the user to run.
 - **Never rebase a task branch that already has commits on origin.** Use GitHub's "Update branch" button at merge time.
 - **Before starting `netlify dev`:** check whether it's already running on port 8888 (`curl -s -o /dev/null -w "%{http_code}" http://localhost:8888/`). If it returns 200, skip.
+- **JSON parsing in Bash:** Prefer `gh ... --jq '...'` (built-in jq via `gh`) or `jq` over `python3 -c "import json,sys; ..."` one-liners. The python invocations trigger per-pattern permission prompts (each unique argument list is a new allowlist entry), while `gh --jq` runs under the existing `Bash(gh ...)` allowance. For non-`gh` JSON, install/use `jq` directly. Reserve python for cases where the data shape genuinely needs control flow.
 - **Bug reports:** Create a GitHub issue (`gh issue create`), tag `bug`, add to current or next phase.
 
 ## Approval Before Action (all tasks)
@@ -236,6 +240,7 @@ For every task — not just bugs — explain the plan and wait for approval befo
 When a bug is reported or a question is asked:
 1. Explain the cause and your proposed fix
 2. Wait for approval before making any changes
+3. Do not edit files, run commands, or implement fixes until given the go-ahead
 
 ## Scope Discipline
 
