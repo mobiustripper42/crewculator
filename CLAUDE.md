@@ -39,7 +39,7 @@ Brendan is a smart, tech-comfortable business major. He is **not a developer** �
 
 ## Key Docs
 | File | Purpose |
-|------|---------|
+|------|-------|
 | `docs/SPEC.md` | What we're building — scope, V1 vs V2 |
 | `docs/DECISIONS.md` | Why we made each architectural choice (DEC-001..004 + DEC-TBD for open API questions) |
 | `docs/USER_STORIES.md` | Stories for the single Payroll Operator role |
@@ -176,7 +176,7 @@ netlify deploy --prod          # production deploy (user runs this)
 ## Agent Workflow
 
 | Agent | Model | When | Purpose |
-|-------|-------|------|---------|
+|-------|-------|------|--------|
 | @architect | Opus | Before design decisions | Keep architecture coherent |
 | @code-review | Sonnet | After every commit (wired into `/kill-this`) | Catch issues early |
 | @pm | Sonnet | Start/end of sessions (via skills) | Track progress, flag risks |
@@ -198,6 +198,7 @@ netlify deploy --prod          # production deploy (user runs this)
 - `/its-dead` runs **once per Claude window**, at the end.
 - Merge each PR whenever convenient — order doesn't matter; `/retro` reads merge timestamps from GitHub.
 - Keep no more than 3 open PRs at once. Prefer 1.
+- **Stacking PRs is preferred** when tasks depend on each other. Branch the next task off the previous task branch (`git checkout -b task/X.Y-next task/X.Y-prev`), not off main. Only wait for the previous PR to merge when there's a direct conflict on the same file.
 - **PRs to `main` require one approving review (DEC-007).** Eric is the reviewer. Brendan does not self-approve and does not click merge on his own PRs. `/kill-this` opens the PR and stops — it does **not** auto-merge. After Eric approves, either Eric or Brendan can click merge; pushing additional commits after approval dismisses the review and re-requires it.
 
 ### Staging vs no-staging (DEC-008)
@@ -223,6 +224,7 @@ Auto-maintained by the version-bump skills. Don't edit by hand mid-flow.
 ## Workflow Notes
 - **Diagnostic commands** (build, lint, type check, test): run directly.
 - **Environment-changing commands** (`npm install`, `netlify deploy`, `git push`): output for the user to run.
+- **Debugging CI failures:** Before any multi-step local debug, confirm the environment is functional first: "Can you run the tests locally right now? What env vars are set?" One environmental check before any code change.
 - **Never rebase a task branch that already has commits on origin.** Use GitHub's "Update branch" button at merge time.
 - **Before starting `netlify dev`:** check whether it's already running on port 8888 (`curl -s -o /dev/null -w "%{http_code}" http://localhost:8888/`). If it returns 200, skip.
 - **JSON parsing in Bash:** Prefer `gh ... --jq '...'` (built-in jq via `gh`) or `jq` over `python3 -c "import json,sys; ..."` one-liners. The python invocations trigger per-pattern permission prompts (each unique argument list is a new allowlist entry), while `gh --jq` runs under the existing `Bash(gh ...)` allowance. For non-`gh` JSON, install/use `jq` directly. Reserve python for cases where the data shape genuinely needs control flow.
@@ -232,8 +234,9 @@ Auto-maintained by the version-bump skills. Don't edit by hand mid-flow.
 
 For every task — not just bugs — explain the plan and wait for approval before doing anything:
 1. State what files you'll create or modify and why
-2. Wait for "go", "do it", or equivalent
-3. Do not write code, create files, run tests, or execute any commands until approved
+2. List commands you'll run, especially commits, pushes, package installs, anything touching production
+3. Wait for "go", "do it", or equivalent
+4. Do not write code, create files, run tests, or execute any commands until approved
 
 ## Bug Reports & Questions
 
@@ -262,12 +265,16 @@ End-of-turn summaries: one or two sentences. What changed, what's next. Stop the
 
 Do not recap work just watched. Do not restate the task. Do not explain why an obvious step was obvious. The summary exists so the next session can re-enter context — not to demonstrate effort.
 
+If a turn ends with a tidy bullet list followed by three paragraphs of prose, the prose is wrong. Delete it.
+
 Mid-session updates: one sentence per state change. "Found X." "Switching to Y." "Build green." Not a paragraph.
+
+This rule applies double at session end. The session-summary block is the first thing read next session — make it dense, not voluminous. Five bullets of work and a wall of text means the summary cannot actually be used. Cut the wall.
 
 ## Cost and Waste
 
-Never minimize cost. Banned phrasings: "essentially zero", "negligible", "only a few cents", "just X dollars", "a rounding error", "not a big deal", "don't worry about it". Any synonym counts.
+Never minimize cost. Banned phrasings: "essentially zero", "negligible", "only a few cents", "just X dollars", "a rounding error", "not a big deal", "don't worry about it". Any synonym counts. If the function of the phrase is to minimize, it's banned. If you find yourself reaching for one, stop.
 
-Treat every cost as real, including small ones. Same rule for compute, API calls, third-party services, dependencies — anything that consumes resources.
+It's my money. Willing-to-spend is not the same as willing-to-spend-flippantly. Treat every cost as real, including small ones. Same rule for compute, API calls, third-party services, dependencies — anything that consumes resources.
 
-Waste of any kind — hours lost, a bad batch, a bricked deploy — is a fact, not a problem to console anyone about. Acknowledge it and move on.
+Waste of any kind — hours lost, a bad batch, a bricked deploy, an over-provisioned instance, a wrong dependency pulled — is a fact, not a problem to console anyone about. When something had to be discarded, do not reassure anyone it's fine. Acknowledge it and move on. If you catch yourself about to write a reassurance, just don't. The fact is the fact.
