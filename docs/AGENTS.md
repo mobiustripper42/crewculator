@@ -190,6 +190,7 @@ May run multiple times in one session — once per task.
 | @sync-config | Sonnet | `/push-seeds`, `/pull-seeds` | Template sync |
 | @tape-reader | Sonnet | `/read-the-tape` | Transcript audit |
 | @ui-reviewer | — | Not used (type-gated to webapp) |
+| @doc-consistency | Sonnet | Via `/doc-consistency-check`, mid-project, before phase boundaries | Cross-reference facts across docs; flag mismatches + placeholders. Report-only |
 | /its-alive | — | Session start | Stamp + open session file + briefing |
 | /pause-this | — | Mid-session break | Safe pause with commit |
 | /restart-this | — | Resume from pause | Reload context |
@@ -199,6 +200,7 @@ May run multiple times in one session — once per task.
 | /retro | — | Phase boundary (end) | Close out phase, write retro, bump versions |
 | /bump-major | — | Breaking change | Manual major version bump |
 | /promote-staging | — | Ship staging to prod | Not used initially — no `origin/staging` |
+| /doc-consistency-check | — | Mid-project, before phase boundaries | Invokes @doc-consistency; cross-refs `docs/*.md` + root `CLAUDE.md` |
 | /push-seeds | — | Backport workflow improvements to seeds | |
 | /pull-seeds | — | Pull seeds improvements into this project | |
 | /read-the-tape | — | Audit a session for anti-patterns | |
