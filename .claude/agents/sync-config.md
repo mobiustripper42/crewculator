@@ -267,6 +267,7 @@ Output the following sections in order. Sections with no entries are omitted ent
 - `Skipped (class:context, N files): <comma-separated list>` — files dropped by Step 1.4 file-class lookup as `context`.
 - `Skipped (type-gated, project type: <type>): <comma-separated list with allowed-types in parens>` — files dropped by Step 1 type-manifest.
 - `Skipped (logic, hash-equal, N files)` — count only; do not list. The absence-is-the-signal rule (Step 2) means in-sync logic files don't need enumeration.
+- `Skipped (logic-drift, PUSH+auto, N files): <comma-separated list> — run /pull-seeds in <repo> to bring project forward to seeds` — files where PUSH+auto found logic-drift and skipped per the Step 2 rule. Listing the files matters here (unlike hash-equal) because the user needs to know which files to /pull-seeds on.
 - `Skipped (already-proposed, N file): <comma-separated list with PR URLs>` — also stays as table rows per Step 3, surfaced here as a count for grep.
 - For each hybrid/unmatched file with Skip hunks (in mode:auto), one line per file: `<file>: <N> Project-only hunks skipped (substitutions/customization)` and/or `<file>: <N> Both-modified hunks skipped (mode:auto default)`. Aggregate by file, not by hunk — don't enumerate each hunk individually.
 
